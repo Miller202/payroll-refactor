@@ -1,4 +1,4 @@
-package payroll.main;
+package payroll.main.utils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

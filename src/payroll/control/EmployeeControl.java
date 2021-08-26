@@ -1,6 +1,7 @@
 package payroll.control;
 
-import payroll.main.GeneralUtils;
+import payroll.main.utils.EmployeeUtils;
+import payroll.main.utils.GeneralUtils;
 import payroll.model.employee.*;
 import payroll.model.payments.PaymentData;
 import payroll.model.payments.PaymentSchedule;
@@ -98,14 +99,8 @@ public class EmployeeControl {
         System.out.println("Digite o ID do empregado que deve ser removido:");
         String id = input.nextLine();
 
-        Employee employeeToRemove = null;
-        for(Employee employee : employees){
-            if(employee.getId().toString().equals(id)){
-                employeeToRemove = employee;
-                employees.remove(employee);
-                break;
-            }
-        }
+        Employee employeeToRemove = EmployeeUtils.findEmployee(employees, id);
+        employees.remove(employeeToRemove);
 
         if(employeeToRemove == null){
             System.out.println("Empregado não foi encontrado!");
@@ -130,12 +125,7 @@ public class EmployeeControl {
         System.out.println("\nDigite o ID do empregado:");
         String id = input.nextLine();
 
-        Employee employeeToEdit = null;
-        for(Employee employee : employees){
-            if(employee.getId().toString().equals(id)){
-                employeeToEdit = employee;
-            }
-        }
+        Employee employeeToEdit = EmployeeUtils.findEmployee(employees, id);
 
         if(employeeToEdit == null){
             System.out.println("\nEmpregado não foi encontrado!");
@@ -154,21 +144,13 @@ public class EmployeeControl {
             if(option == 1){
                 System.out.println("Digite o novo nome: ");
                 String name = input.nextLine();
-                for(Employee employee : employees){
-                    if(employee.getId().toString().equals(id)){
-                        employee.setName(name);
-                    }
-                }
+                employeeToEdit.setName(name);
                 System.out.println("Nome editado!");
             }
             else if(option == 2){
                 System.out.println("Digite o novo endereço: ");
                 String address = input.nextLine();
-                for(Employee employee : employees){
-                    if(employee.getId().toString().equals(id)){
-                        employee.setAddress(address);
-                    }
-                }
+                employeeToEdit.setAddress(address);
                 System.out.println("Endereço editado!");
             }
             else if(option == 3){
@@ -176,102 +158,84 @@ public class EmployeeControl {
                 System.out.println("[1] - Horista, [2] - Salariado, [3] - Comissionado");
                 int type = input.nextInt();
 
-                for(Employee employee : employees){
-                    if(employee.getId().toString().equals(id)){
-                        Employee newEmployee = null;
-                        if(type == 1){
-                            System.out.println("Digite o salário por hora:");
-                            Double hourlySalary = input.nextDouble();
-                            System.out.println();
+                Employee newEmployee = null;
+                if(type == 1){
+                    System.out.println("Digite o salário por hora:");
+                    Double hourlySalary = input.nextDouble();
+                    System.out.println();
 
-                            newEmployee = new Hourly(employee.getId(), employee.getName(),
-                                    employee.getAddress(), employee.getSyndicate(),
-                                    employee.getPaymentData(), hourlySalary);
-                        }else if(type == 2){
-                            System.out.println("Digite o salário:");
-                            Double salary = input.nextDouble();
-                            System.out.println();
+                    newEmployee = new Hourly(employeeToEdit.getId(), employeeToEdit.getName(),
+                            employeeToEdit.getAddress(), employeeToEdit.getSyndicate(),
+                            employeeToEdit.getPaymentData(), hourlySalary);
+                }else if(type == 2){
+                    System.out.println("Digite o salário:");
+                    Double salary = input.nextDouble();
+                    System.out.println();
 
-                            newEmployee = new Salaried(employee.getId(), employee.getName(),
-                                    employee.getAddress(), employee.getSyndicate(),
-                                    employee.getPaymentData(), salary);
-                        }else if(type == 3){
-                            System.out.println("Digite o salário fixo:");
-                            Double fixedSalary = input.nextDouble();
-                            System.out.println();
+                    newEmployee = new Salaried(employeeToEdit.getId(), employeeToEdit.getName(),
+                            employeeToEdit.getAddress(), employeeToEdit.getSyndicate(),
+                            employeeToEdit.getPaymentData(), salary);
+                }else if(type == 3){
+                    System.out.println("Digite o salário fixo:");
+                    Double fixedSalary = input.nextDouble();
+                    System.out.println();
 
-                            System.out.println("Digite a taxa de comissão:");
-                            Double commission = input.nextDouble();
-                            System.out.println();
+                    System.out.println("Digite a taxa de comissão:");
+                    Double commission = input.nextDouble();
+                    System.out.println();
 
-                            newEmployee = new Commissioned(employee.getId(), employee.getName(),
-                                    employee.getAddress(), employee.getSyndicate(),
-                                    employee.getPaymentData(), fixedSalary, commission);
-                        }else{
-                            System.out.println("Opção inválida!");
-                        }
-
-                        employees.remove(employee);
-                        employees.add(newEmployee);
-                        System.out.println("\nTipo de empregado editado com sucesso!");
-                    }
+                    newEmployee = new Commissioned(employeeToEdit.getId(), employeeToEdit.getName(),
+                            employeeToEdit.getAddress(), employeeToEdit.getSyndicate(),
+                            employeeToEdit.getPaymentData(), fixedSalary, commission);
+                }else{
+                    System.out.println("Opção inválida!");
                 }
+
+                employees.remove(employeeToEdit);
+                employees.add(newEmployee);
+                System.out.println("\nTipo de empregado editado com sucesso!");
             }
             else if(option == 4){
                 String payMethod = GeneralUtils.readPayMethod(input);
-
-                for(Employee employee : employees){
-                    if(employee.getId().toString().equals(id)){
-                        employee.getPaymentData().setPaymentMethod(payMethod);
-                    }
-                }
+                employeeToEdit.getPaymentData().setPaymentMethod(payMethod);
                 System.out.println("Método de pagamento atualizado!");
             }
             else if(option == 5){
-                for(Employee employee : employees){
-                    if(employee.getId().toString().equals(id)){
-                        if(employee.getSyndicate() == null){
-                            System.out.println("Empregado não pertence ao sindicato, deseja cadastrar?");
-                            System.out.println("[1] Sim, [2] Não");
-                            int choice = input.nextInt();
-                            if(choice == 1){
-                                System.out.println("Digite a taxa sindical:");
-                                Double tax = input.nextDouble();
-                                employee.setSyndicate(new Syndicate(UUID.randomUUID(),
-                                        employee.getId(), true, tax));
-                            }
-                        }else{
-                            if(employee.getSyndicate().getActive()){
-                                System.out.println("Seu cadastro no sindicato está ativo, deseja desativar?");
-                                System.out.println("[1] Sim, [2] Não");
-                                int choice = input.nextInt();
-                                if(choice == 1){
-                                    employee.getSyndicate().setActive(false);
-                                }
-                            }else{
-                                System.out.println("Seu cadastro no sindicato está desativado, deseja ativar?");
-                                System.out.println("[1] Sim, [2] Não");
-                                int choice = input.nextInt();
-                                if(choice == 1){
-                                    employee.getSyndicate().setActive(true);
-                                }
-                            }
+                if(employeeToEdit.getSyndicate() == null){
+                    System.out.println("Empregado não pertence ao sindicato, deseja cadastrar?");
+                    System.out.println("[1] Sim, [2] Não");
+                    int choice = input.nextInt();
+                    if(choice == 1){
+                        System.out.println("Digite a taxa sindical:");
+                        Double tax = input.nextDouble();
+                        employeeToEdit.setSyndicate(new Syndicate(UUID.randomUUID(), employeeToEdit.getId(), true, tax));
+                    }
+                }else{
+                    if(employeeToEdit.getSyndicate().getActive()){
+                        System.out.println("Seu cadastro no sindicato está ativo, deseja desativar?");
+                        System.out.println("[1] Sim, [2] Não");
+                        int choice = input.nextInt();
+                        if(choice == 1){
+                            employeeToEdit.getSyndicate().setActive(false);
+                        }
+                    }else{
+                        System.out.println("Seu cadastro no sindicato está desativado, deseja ativar?");
+                        System.out.println("[1] Sim, [2] Não");
+                        int choice = input.nextInt();
+                        if(choice == 1){
+                            employeeToEdit.getSyndicate().setActive(true);
                         }
                     }
                 }
                 System.out.println("Operação realizada com sucesso!");
             }
             else if(option == 6){
-                for(Employee employee : employees){
-                    if(employee.getId().toString().equals(id)){
-                        if(employee.getSyndicate() == null){
-                            System.out.println("Empregado não pertence ao sindicato");
-                        }else{
-                            System.out.println("Digite a nova taxa sindical:");
-                            Double tax = input.nextDouble();
-                            employee.getSyndicate().setTax(tax);
-                        }
-                    }
+                if(employeeToEdit.getSyndicate() == null){
+                    System.out.println("Empregado não pertence ao sindicato");
+                }else{
+                    System.out.println("Digite a nova taxa sindical:");
+                    Double tax = input.nextDouble();
+                    employeeToEdit.getSyndicate().setTax(tax);
                 }
                 System.out.println("Operação realizada com sucesso!");
             }
@@ -287,7 +251,7 @@ public class EmployeeControl {
         System.out.println("\nDigite o ID do empregado:");
         String id = input.nextLine();
 
-        Boolean foundEmp = null;
+        boolean foundEmp = false;
         for(Employee employee : employees){
             if(employee.getId().toString().equals(id)){
                 foundEmp = true;
@@ -312,7 +276,7 @@ public class EmployeeControl {
             }
         }
 
-        if(foundEmp == null){
+        if(!foundEmp){
             System.out.println("\nEmpregado não foi encontrado!");
         }
 

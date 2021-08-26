@@ -1,6 +1,6 @@
 package payroll.control;
 
-import payroll.main.GeneralUtils;
+import payroll.main.utils.GeneralUtils;
 import payroll.model.employee.Commissioned;
 import payroll.model.employee.Employee;
 import payroll.model.employee.Hourly;
