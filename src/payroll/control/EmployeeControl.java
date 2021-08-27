@@ -14,77 +14,46 @@ public class EmployeeControl {
 
     public static Employee register(Scanner input, ArrayList<PaymentSchedule> paymentSchedules){
         Employee employee;
-        Syndicate syndicate = null;
+        Syndicate syndicate;
         PaymentData paymentData;
         PaymentSchedule paySchedule;
         String schedule;
-        int answer = 0;
+        int answer;
 
         UUID id = UUID.randomUUID();
-
-        System.out.println("\nDigite o nome do empregado:");
-        String name = input.nextLine();
-
-        System.out.println("\nDigite o endereço:");
-        String address = input.nextLine();
+        String name = GeneralUtils.readString(input, "\nDigite o nome do empregado:");
+        String address = GeneralUtils.readString(input, "\nDigite o endereço:");
 
         System.out.println("\nQual o tipo de empregado?");
-        System.out.println("[1] - Horista, [2] - Salariado, [3] - Comissionado");
-        answer = input.nextInt();
+        answer = GeneralUtils.readInt(input, "[1] - Horista, [2] - Salariado, [3] - Comissionado");
 
         if(answer == 1){
-            System.out.println("Digite o salário por hora:");
-            Double hourlySalary = input.nextDouble();
-
-            employee = new Hourly(id, name, address, syndicate, null, hourlySalary);
+            Double hourlySalary = GeneralUtils.readDouble(input, "Digite o salário por hora:");
+            employee = new Hourly(id, name, address, null, null, hourlySalary);
             paySchedule = paymentSchedules.get(1);
         }
         else if(answer == 2){
-            System.out.println("Digite o salário:");
-            Double salary = input.nextDouble();
-
-            employee = new Salaried(id, name, address, syndicate, null, salary);
+            Double salary = GeneralUtils.readDouble(input, "Digite o salário:");
+            employee = new Salaried(id, name, address, null, null, salary);
             paySchedule = paymentSchedules.get(0);
         }
         else if(answer == 3){
-            System.out.println("Digite o salário fixo:");
-            Double fixedSalary = input.nextDouble();
-            System.out.println("Digite a taxa de comissão:");
-            Double commission = input.nextDouble();
-
-            employee = new Commissioned(id, name, address, syndicate, null, fixedSalary, commission);
+            Double fixedSalary = GeneralUtils.readDouble(input, "Digite o salário fixo:");
+            Double commission = GeneralUtils.readDouble(input, "Digite a taxa de comissão:");
+            employee = new Commissioned(id, name, address, null, null, fixedSalary, commission);
             paySchedule = paymentSchedules.get(2);
         }else{
-            System.out.println("Digite o salário:");
-            Double salary = input.nextDouble();
-
-            employee = new Salaried(id, name, address, syndicate, null, salary);
+            Double salary = GeneralUtils.readDouble(input, "Digite o salário:");
+            employee = new Salaried(id, name, address, null, null, salary);
             paySchedule = paymentSchedules.get(0);
         }
 
-        System.out.println("\nO empregado é membro do sindicato? ([1] - Sim, [2] - Não): ");
-        int aux = input.nextInt();
-
-        if (aux == 1){
-            UUID syndicateId = UUID.randomUUID();
-            System.out.println("Digite a taxa sindical:");
-            Double tax = input.nextDouble();
-            syndicate = new Syndicate(syndicateId, id, true, tax);
-            employee.setSyndicate(syndicate);
-        }
+        syndicate = EmployeeUtils.registerEmployeeSyndicate(input, id);
+        employee.setSyndicate(syndicate);
 
         input.nextLine();
 
-        System.out.println("\nVamos cadastrar os dados de pagamento!");
-        System.out.println("Digite o número do banco:");
-        int bank = input.nextInt();
-        System.out.println("Digite o número da agência:");
-        int agency = input.nextInt();
-        System.out.println("Digite o número da conta:");
-        int account = input.nextInt();
-
-        String payMethod = GeneralUtils.readPayMethod(input);
-        paymentData = new PaymentData(bank, agency, account, payMethod, paySchedule);
+        paymentData = EmployeeUtils.registerEmployeePayData(input, paySchedule);
         employee.setPaymentData(paymentData);
 
         input.nextLine();
@@ -96,8 +65,7 @@ public class EmployeeControl {
     }
 
     public static void removeEmployee(Scanner input, ArrayList<Employee> employees){
-        System.out.println("Digite o ID do empregado que deve ser removido:");
-        String id = input.nextLine();
+        String id = GeneralUtils.readString(input, "Digite o ID do empregado que deve ser removido:");
 
         Employee employeeToRemove = EmployeeUtils.findEmployee(employees, id);
         employees.remove(employeeToRemove);
@@ -122,8 +90,7 @@ public class EmployeeControl {
 
     public static void editEmployee(Scanner input, ArrayList<Employee> employees){
 
-        System.out.println("\nDigite o ID do empregado:");
-        String id = input.nextLine();
+        String id = GeneralUtils.readString(input, "\nDigite o ID do empregado:");
 
         Employee employeeToEdit = EmployeeUtils.findEmployee(employees, id);
 
@@ -142,46 +109,38 @@ public class EmployeeControl {
             input.nextLine();
 
             if(option == 1){
-                System.out.println("Digite o novo nome: ");
-                String name = input.nextLine();
+                String name = GeneralUtils.readString(input, "Digite o novo nome: ");
                 employeeToEdit.setName(name);
                 System.out.println("Nome editado!");
             }
             else if(option == 2){
-                System.out.println("Digite o novo endereço: ");
-                String address = input.nextLine();
+                String address = GeneralUtils.readString(input, "Digite o novo endereço: ");
                 employeeToEdit.setAddress(address);
                 System.out.println("Endereço editado!");
             }
             else if(option == 3){
                 System.out.println("\nEscolha o novo tipo");
-                System.out.println("[1] - Horista, [2] - Salariado, [3] - Comissionado");
-                int type = input.nextInt();
+                int type = GeneralUtils.readInt(input, "[1] - Horista, [2] - Salariado, [3] - Comissionado");
 
                 Employee newEmployee = null;
                 if(type == 1){
-                    System.out.println("Digite o salário por hora:");
-                    Double hourlySalary = input.nextDouble();
+                    Double hourlySalary = GeneralUtils.readDouble(input, "Digite o salário por hora:");
                     System.out.println();
 
                     newEmployee = new Hourly(employeeToEdit.getId(), employeeToEdit.getName(),
                             employeeToEdit.getAddress(), employeeToEdit.getSyndicate(),
                             employeeToEdit.getPaymentData(), hourlySalary);
                 }else if(type == 2){
-                    System.out.println("Digite o salário:");
-                    Double salary = input.nextDouble();
+                    Double salary = GeneralUtils.readDouble(input, "Digite o salário:");
                     System.out.println();
 
                     newEmployee = new Salaried(employeeToEdit.getId(), employeeToEdit.getName(),
                             employeeToEdit.getAddress(), employeeToEdit.getSyndicate(),
                             employeeToEdit.getPaymentData(), salary);
                 }else if(type == 3){
-                    System.out.println("Digite o salário fixo:");
-                    Double fixedSalary = input.nextDouble();
+                    Double fixedSalary = GeneralUtils.readDouble(input, "Digite o salário fixo:");
                     System.out.println();
-
-                    System.out.println("Digite a taxa de comissão:");
-                    Double commission = input.nextDouble();
+                    Double commission = GeneralUtils.readDouble(input, "Digite a taxa de comissão:");
                     System.out.println();
 
                     newEmployee = new Commissioned(employeeToEdit.getId(), employeeToEdit.getName(),
@@ -203,25 +162,21 @@ public class EmployeeControl {
             else if(option == 5){
                 if(employeeToEdit.getSyndicate() == null){
                     System.out.println("Empregado não pertence ao sindicato, deseja cadastrar?");
-                    System.out.println("[1] Sim, [2] Não");
-                    int choice = input.nextInt();
+                    int choice = GeneralUtils.readInt(input, "[1] Sim, [2] Não");
                     if(choice == 1){
-                        System.out.println("Digite a taxa sindical:");
-                        Double tax = input.nextDouble();
+                        Double tax = GeneralUtils.readDouble(input, "Digite a taxa sindical:");
                         employeeToEdit.setSyndicate(new Syndicate(UUID.randomUUID(), employeeToEdit.getId(), true, tax));
                     }
                 }else{
                     if(employeeToEdit.getSyndicate().getActive()){
                         System.out.println("Seu cadastro no sindicato está ativo, deseja desativar?");
-                        System.out.println("[1] Sim, [2] Não");
-                        int choice = input.nextInt();
+                        int choice = GeneralUtils.readInt(input, "[1] Sim, [2] Não");
                         if(choice == 1){
                             employeeToEdit.getSyndicate().setActive(false);
                         }
                     }else{
                         System.out.println("Seu cadastro no sindicato está desativado, deseja ativar?");
-                        System.out.println("[1] Sim, [2] Não");
-                        int choice = input.nextInt();
+                        int choice = GeneralUtils.readInt(input, "[1] Sim, [2] Não");
                         if(choice == 1){
                             employeeToEdit.getSyndicate().setActive(true);
                         }
@@ -233,8 +188,7 @@ public class EmployeeControl {
                 if(employeeToEdit.getSyndicate() == null){
                     System.out.println("Empregado não pertence ao sindicato");
                 }else{
-                    System.out.println("Digite a nova taxa sindical:");
-                    Double tax = input.nextDouble();
+                    Double tax = GeneralUtils.readDouble(input, "Digite a nova taxa sindical:");
                     employeeToEdit.getSyndicate().setTax(tax);
                 }
                 System.out.println("Operação realizada com sucesso!");
@@ -248,8 +202,8 @@ public class EmployeeControl {
 
     public static void editEmployeeSchedule(Scanner input, ArrayList<Employee> employees,
                                             ArrayList<PaymentSchedule> paymentSchedules){
-        System.out.println("\nDigite o ID do empregado:");
-        String id = input.nextLine();
+
+        String id = GeneralUtils.readString(input, "\nDigite o ID do empregado:");
 
         boolean foundEmp = false;
         for(Employee employee : employees){

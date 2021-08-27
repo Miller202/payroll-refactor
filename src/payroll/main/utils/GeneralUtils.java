@@ -7,6 +7,21 @@ import java.util.Scanner;
 
 public class GeneralUtils {
 
+    public static String readString(Scanner input, String str){
+        System.out.println(str);
+        return input.nextLine();
+    }
+
+    public static Double readDouble(Scanner input, String str){
+        System.out.println(str);
+        return input.nextDouble();
+    }
+
+    public static int readInt(Scanner input, String str){
+        System.out.println(str);
+        return input.nextInt();
+    }
+
     public static LocalDate readData(Scanner input){
         System.out.println("Digite o dia (número):");
         int day = input.nextInt();
