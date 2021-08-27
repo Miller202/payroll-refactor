@@ -51,6 +51,19 @@ public class PaymentsControl {
         return paymentList;
     }
 
+    public static int getMethodDiv(Employee emp){
+        int div;
+        String method = emp.getPaymentData().getSchedule().getSchedule();
+        if(method.equals("Semanal")){
+            div = 4;
+        }else if(method.equals("Bisemanal")){
+            div = 2;
+        }else{
+            div = 1;
+        }
+        return div;
+    }
+
     public static boolean verifyPayDate(Employee employee, int week, LocalDate current){
         boolean alreadyPay = false;
         boolean dateInSchedule = false;

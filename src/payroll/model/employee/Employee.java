@@ -85,7 +85,7 @@ public abstract class Employee implements Serializable {
         str += "\nDados de pagamento:" + getPaymentData().toString();
         return str;
     }
-    
+
     public String verifySyndicateMember(){
         if(getSyndicate() != null){
             return getSyndicate().toString();
@@ -130,19 +130,6 @@ public abstract class Employee implements Serializable {
         }
 
         return taxes;
-    }
-
-    public int getMethodDiv(){
-        int div;
-        String method = this.getPaymentData().getSchedule().getSchedule();
-        if(method.equals("Semanal")){
-            div = 4;
-        }else if(method.equals("Bisemanal")){
-            div = 2;
-        }else{
-            div = 1;
-        }
-        return div;
     }
 
     public abstract Double getGrossPayment(LocalDate payDate);
