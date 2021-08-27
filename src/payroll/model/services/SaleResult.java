@@ -19,16 +19,8 @@ public class SaleResult implements Serializable {
         return value;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
     public LocalDate getDate() {
         return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     @Override

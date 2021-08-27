@@ -10,13 +10,6 @@ public class Salaried extends Employee {
 
     private Double salary;
 
-    public Salaried(){
-
-    }
-
-    public Salaried(Double salary){
-        this.salary = salary;
-    }
 
     public Salaried(UUID id, String name, String address, Syndicate syndicate,
                     PaymentData paymentData, Double salary) {
@@ -26,10 +19,6 @@ public class Salaried extends Employee {
 
     public Double getSalary() {
         return salary;
-    }
-
-    public void setSalary(Double salary) {
-        this.salary = salary;
     }
 
     @Override

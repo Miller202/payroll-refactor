@@ -23,24 +23,12 @@ public class TimeCard implements Serializable {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public LocalTime getTimeEntry() {
         return timeEntry;
     }
 
-    public void setTimeEntry(LocalTime timeEntry) {
-        this.timeEntry = timeEntry;
-    }
-
     public LocalTime getTimeOut() {
         return timeOut;
-    }
-
-    public void setTimeOut(LocalTime timeOut) {
-        this.timeOut = timeOut;
     }
 
     @Override

@@ -9,6 +9,7 @@ public class ServiceTax implements Serializable {
 
     public LocalDate date;
 
+
     public ServiceTax(Double value, LocalDate date) {
         this.value = value;
         this.date = date;
@@ -18,16 +19,8 @@ public class ServiceTax implements Serializable {
         return value;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
     public LocalDate getDate() {
         return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     @Override

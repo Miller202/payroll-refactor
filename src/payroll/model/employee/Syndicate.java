@@ -18,9 +18,6 @@ public class Syndicate implements Serializable {
 
     private ArrayList<ServiceTax> serviceTaxes;
 
-    public Syndicate(){
-
-    }
 
     public Syndicate(UUID id, UUID EmployeeId, boolean active, Double tax) {
         this.id = id;
@@ -32,18 +29,6 @@ public class Syndicate implements Serializable {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getEmployeeId() {
-        return EmployeeId;
-    }
-
-    public void setEmployeeId(UUID employeeId) {
-        EmployeeId = employeeId;
     }
 
     public boolean isActive() {
@@ -68,10 +53,6 @@ public class Syndicate implements Serializable {
 
     public ArrayList<ServiceTax> getServiceTaxes() {
         return serviceTaxes;
-    }
-
-    public void setServiceTaxes(ArrayList<ServiceTax> serviceTaxes) {
-        this.serviceTaxes = serviceTaxes;
     }
 
     @Override

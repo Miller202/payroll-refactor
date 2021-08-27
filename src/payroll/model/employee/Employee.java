@@ -24,9 +24,6 @@ public abstract class Employee implements Serializable {
 
     private PaymentData paymentData;
 
-    public Employee(){
-
-    }
 
     public Employee(UUID id, String name, String address, Syndicate syndicate, PaymentData paymentData) {
         this.id = id;
@@ -38,10 +35,6 @@ public abstract class Employee implements Serializable {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getName() {

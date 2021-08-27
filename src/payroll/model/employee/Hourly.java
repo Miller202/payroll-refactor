@@ -18,14 +18,6 @@ public class Hourly extends Employee {
 
     private ArrayList<TimeCard> timeCards;
 
-    public Hourly(){
-
-    }
-
-    public Hourly(Double hourlySalary){
-        this.hourlySalary = hourlySalary;
-        this.timeCards = new ArrayList<TimeCard>();
-    }
 
     public Hourly(UUID id, String name, String address, Syndicate syndicate,
                   PaymentData paymentData, Double hourlySalary) {
@@ -38,16 +30,8 @@ public class Hourly extends Employee {
         return hourlySalary;
     }
 
-    public void setHourlySalary(Double hourlySalary) {
-        this.hourlySalary = hourlySalary;
-    }
-
     public ArrayList<TimeCard> getTimeCards() {
         return timeCards;
-    }
-
-    public void setTimeCards(ArrayList<TimeCard> timeCards) {
-        this.timeCards = timeCards;
     }
 
     @Override
