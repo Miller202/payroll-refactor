@@ -76,24 +76,4 @@ public class GeneralUtils {
         return payMethod;
     }
 
-    // no longer used but may be reused soon
-    public static String readSchedule(Scanner input){
-        System.out.println("Como deseja receber o seu salário?");
-        System.out.println("[1] - Mensal, [2] - Semanal, [3] - Bisemanal\n");
-        int scheduleChoice = input.nextInt();
-
-        String schedule;
-        if(scheduleChoice == 1){
-            schedule = "Mensal";
-        }else if(scheduleChoice == 2){
-            schedule = "Semanal";
-        }else if(scheduleChoice == 3){
-            schedule = "Bisemanal";
-        }else{
-            schedule = "Mensal";
-        }
-
-        return schedule;
-    }
-
 }

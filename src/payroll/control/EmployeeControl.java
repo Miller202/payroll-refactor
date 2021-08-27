@@ -17,7 +17,6 @@ public class EmployeeControl {
         Syndicate syndicate;
         PaymentData paymentData;
         PaymentSchedule paySchedule;
-        String schedule;
         int answer;
 
         UUID id = UUID.randomUUID();
