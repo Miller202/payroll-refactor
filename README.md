@@ -24,8 +24,8 @@
 
 * Duplicate code
   - Repetição dos loops (condicionais) para encontrar um empregado em (EditEmployee) e (RemoveEmployee);
-  - Classes ServiceTax e SaleReport, apesar de semânticamente diferentes, têm exatamente os mesmos atributos: date (LocalDate) e value (Double); além disso, contam com o mesmo  método toString(), imprimindo os dois atributos; //pendente
-
+  - Classes ServiceTax e SaleReport possuem exatamente os mesmos atributos: date (LocalDate) e value (Double); além disso, contam com o mesmo método toString();
+ 
 * Long method
   - Declarações de if/else muito extensas no menu principal e no menu para editar empregado;
   - Métodos extensos que acumulam muitas variáveis locais;
