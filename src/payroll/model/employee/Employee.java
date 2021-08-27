@@ -81,13 +81,17 @@ public abstract class Employee implements Serializable {
         String str = "Id no sistema: " + getId();
         str += "\nNome: " + getName();
         str += "\nEndereço: " + getAddress();
-        if(getSyndicate() != null){
-            str += getSyndicate().toString();
-        }else{
-            str += "\nNão é membro do sindicato";
-        }
+        str += verifySyndicateMember();
         str += "\nDados de pagamento:" + getPaymentData().toString();
         return str;
+    }
+    
+    public String verifySyndicateMember(){
+        if(getSyndicate() != null){
+            return getSyndicate().toString();
+        }else{
+            return "\nNão é membro do sindicato";
+        }
     }
 
     public Double getSyndicateTax() {

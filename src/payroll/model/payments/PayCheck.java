@@ -77,16 +77,26 @@ public class PayCheck implements Serializable {
     @Override
     public String toString() {
         String str = "\nEmpregado: " + this.getEmployee().getName();
-        str += "\nMétodo de pagamento: " + this.getEmployee().getPaymentData().getPaymentMethod();
+        str += getPaymentMethodString();
         str += "\nValor bruto do pagamento: " + this.getPaymentValue();
-        if(isHaveTax()){
-            str += "\nTaxas (sindicato + serviços): " + this.getTaxes();
-            str += "\nSalário final (bruto - taxas): " + (this.getPaymentValue() - this.getTaxes());
-        }else{
-            str += "\nSalário final (não houve desconto de taxas): " + this.getPaymentValue();
-        }
+        str += verifyIfHaveTaxes();
         str += "\nData: " + this.getDate() + "\n";
 
+        return str;
+    }
+
+    public String getPaymentMethodString(){
+        return "\nMétodo de pagamento: " + this.getEmployee().getPaymentData().getPaymentMethod();
+    }
+
+    public String verifyIfHaveTaxes(){
+        String str;
+        if(isHaveTax()){
+            str = "\nTaxas (sindicato + serviços): " + this.getTaxes();
+            str += "\nSalário final (bruto - taxas): " + (this.getPaymentValue() - this.getTaxes());
+        }else{
+            str = "\nSalário final (não houve desconto de taxas): " + this.getPaymentValue();
+        }
         return str;
     }
 }
