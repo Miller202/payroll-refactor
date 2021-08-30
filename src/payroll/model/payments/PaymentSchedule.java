@@ -1,5 +1,7 @@
 package payroll.model.payments;
 
+import payroll.control.strategy.ScheduleStrategy;
+
 import java.io.Serializable;
 import java.time.DayOfWeek;
 
@@ -11,11 +13,14 @@ public class PaymentSchedule implements Serializable {
 
     private String schedule;
 
+    private ScheduleStrategy strategy;
 
-    public PaymentSchedule(Integer monthDay, DayOfWeek weekDay, String schedule) {
+
+    public PaymentSchedule(Integer monthDay, DayOfWeek weekDay, String schedule, ScheduleStrategy strategy) {
         this.monthDay = monthDay;
         this.weekDay = weekDay;
         this.schedule = schedule;
+        this.strategy = strategy;
     }
 
     public Integer getMonthDay() {
@@ -28,6 +33,10 @@ public class PaymentSchedule implements Serializable {
 
     public String getSchedule() {
         return schedule;
+    }
+
+    public ScheduleStrategy getStrategy() {
+        return strategy;
     }
 
     @Override
