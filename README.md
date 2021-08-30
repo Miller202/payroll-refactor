@@ -8,11 +8,6 @@
 * <p align="justify">Alguns empregados recebem um salário fixo mensal. São pagos no último dia útil do mês (desconsidere feriados). Tais empregados são chamados "assalariados".</p>
 
 * <p align="justify">Alguns empregados assalariados são comissionados e portanto recebem uma comissão, um percentual das vendas que realizam. Eles submetem resultados de vendas que informam a data e valor da venda. O percentual de comissão varia de empregado para empregado. Eles são pagos a cada 2 sextas-feiras; neste momento, devem receber o equivalente de 2 semanas de salário fixo mais as comissões do período.
-  
-  - Empregados podem escolher o método de pagamento.
-  - Podem receber um cheque pelos correios
-  - Podem receber um cheque em mãos
-  - Podem pedir depósito em conta bancária
 
 </p>
 
@@ -39,3 +34,20 @@
   - Métodos getters e setter que não são utilizados;
   - Método readSchedule (classe GeneralUtils) não é utilizado.
   - String schedule no método register(classe EmployeeMenu) não é utilizada.
+
+## Refactoring
+
+* Strategy
+  - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy.
+
+* Move Accumulation to Collecting Parameter
+  - Diversos métodos extensos foram refatorados para aumentar a modularização;
+  - Métodos da classe EmployeeMenu foram modularizados, com a remoção de duplicated code nos loops (descritos acima);
+  - Modularização com a criação de métodos utils para ler dados nos métodos register e editEmployee da classe EmployeeMenu;
+  - Simplificação do toString das classes Employee e PayCheck.
+
+* Remove Generative Speculation
+  - Alguns métodos construtores, getters e setters nunca foram utilizados. Logo, foram removidos na refatoração. O mesmo aconteceu com o método readSchedule da classe GeneralUtils e a variável schedule no register employee.
+
+* Move method
+  - O método getMethodDiv foi movido para a classe PaymentsControl, pois trata justamente do controle da forma de pagamento, de acordo com as agendas.
