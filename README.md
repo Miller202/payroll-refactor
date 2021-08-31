@@ -38,16 +38,16 @@
 ## Refactoring
 
 * Strategy
-  - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy.
+  - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy. [Veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/f23c1823533c0860b0556770fd252472b77fcb0f)
 
 * Move Accumulation to Collecting Parameter
   - Diversos métodos extensos foram refatorados para aumentar a modularização;
-  - Métodos da classe EmployeeMenu foram modularizados, com a remoção de duplicated code nos loops (descritos acima);
-  - Modularização com a criação de métodos utils para ler dados nos métodos register e editEmployee da classe EmployeeMenu;
-  - Simplificação do toString das classes Employee e PayCheck.
+  - Métodos da classe EmployeeMenu foram modularizados, com a remoção de duplicated code nos loops, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/2659a848dc2c57861983c26630ea4be9fa233485);
+  - Modularização com a criação de métodos utils para ler dados nos métodos register e editEmployee da classe EmployeeMenu, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/d5b6dc1da9fbc550de000ce8d376c35708bd038e);
+  - Simplificação do toString das classes Employee e PayCheck, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/e4591646abe5943794102eb297fcf4a863715971).
 
 * Remove Generative Speculation
-  - Alguns métodos construtores, getters e setters nunca foram utilizados. Logo, foram removidos na refatoração. O mesmo aconteceu com o método readSchedule da classe GeneralUtils e a variável schedule no register employee.
+  - Alguns métodos construtores, getters e setters nunca foram utilizados. Logo, foram removidos na refatoração, [veja aqui](https://github.com/Miller202/payroll-refactor/commit/9d7ff5cc64dd246539fd2c2d1785f45f62a6e554). O mesmo aconteceu com o método readSchedule da classe GeneralUtils e a variável schedule no register employee. [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/9839794051c5bd519d26d6df061e29cad1a28935)
 
 * Move method
-  - O método getMethodDiv foi movido para a classe PaymentsControl, pois trata justamente do controle da forma de pagamento, de acordo com as agendas.
+  - O método getMethodDiv foi movido para a classe PaymentsControl, pois trata justamente do controle da forma de pagamento, de acordo com as agendas. [solução](https://github.com/Miller202/payroll-refactor/commit/29b0430f9ee2d5a0b9637bb01128bce7f80eafe8)
