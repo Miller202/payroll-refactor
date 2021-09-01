@@ -3,6 +3,9 @@ package payroll.main;
 import payroll.control.EmployeeControl;
 import payroll.control.PaymentsControl;
 import payroll.control.ServicesControl;
+import payroll.control.interpreter.CommissionedFilter;
+import payroll.control.interpreter.HourlyFilter;
+import payroll.control.interpreter.SyndicateFilter;
 import payroll.model.Enterprise;
 
 import java.io.ByteArrayInputStream;
@@ -69,7 +72,7 @@ public class Menu {
                 else if(option == 4){
                     if(!enterprise.getEmployees().isEmpty()){
                         undo.push(storeState(enterprise));
-                        ServicesControl.postTimeCard(input, enterprise.getEmployees());
+                        ServicesControl.postTimeCard(input, enterprise.getFilteredEmployees(new HourlyFilter()));
                     }else{
                         System.out.println("Não há empregados cadastrados!");
                     }
@@ -77,7 +80,7 @@ public class Menu {
                 else if(option == 5){
                     if(!enterprise.getEmployees().isEmpty()){
                         undo.push(storeState(enterprise));
-                        ServicesControl.postSaleResult(input, enterprise.getEmployees());
+                        ServicesControl.postSaleResult(input, enterprise.getFilteredEmployees(new CommissionedFilter()));
                     }else{
                         System.out.println("Não há empregados cadastrados!");
                     }
@@ -85,7 +88,7 @@ public class Menu {
                 else if(option == 6){
                     if(!enterprise.getEmployees().isEmpty()){
                         undo.push(storeState(enterprise));
-                        ServicesControl.postServiceTax(input, enterprise.getEmployees());
+                        ServicesControl.postServiceTax(input, enterprise.getFilteredEmployees(new SyndicateFilter()));
                     }else{
                         System.out.println("Não há empregados cadastrados!");
                     }

@@ -1,6 +1,7 @@
 package payroll.model;
 
 import payroll.control.PaymentsControl;
+import payroll.control.interpreter.EmployeeFilterInterpreter;
 import payroll.model.employee.Employee;
 import payroll.model.payments.PaymentList;
 import payroll.model.payments.PaymentSchedule;
@@ -27,8 +28,14 @@ public class Enterprise implements Serializable {
         return employees;
     }
 
-    public void setEmployees(ArrayList<Employee> employees) {
-        this.employees = employees;
+    public ArrayList<Employee> getFilteredEmployees(EmployeeFilterInterpreter interpreter){
+        ArrayList<Employee> filteredEmployees = new ArrayList<>();
+        for (Employee employee : this.employees) {
+            if (interpreter.instanceEmployee(employee)) {
+                filteredEmployees.add(employee);
+            }
+        }
+        return filteredEmployees;
     }
 
     public ArrayList<PaymentList> getPaymentsLists() {
@@ -37,10 +44,6 @@ public class Enterprise implements Serializable {
 
     public ArrayList<PaymentSchedule> getPaymentSchedules() {
         return paymentSchedules;
-    }
-
-    public void setPaymentSchedules(ArrayList<PaymentSchedule> paymentSchedules) {
-        this.paymentSchedules = paymentSchedules;
     }
 
 }

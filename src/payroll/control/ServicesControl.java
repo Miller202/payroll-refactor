@@ -12,8 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class ServicesControl {
 
@@ -21,12 +19,8 @@ public class ServicesControl {
         System.out.println("Digite o ID do empregado:");
         String id = input.nextLine();
 
-        Predicate<Employee> empFilter = employee -> employee instanceof Hourly;
-        ArrayList<Employee> hourlyList = Employees.stream().filter(empFilter).
-                collect(Collectors.toCollection(ArrayList::new));
-
         Hourly employeeToPost = null;
-        for(Employee hourly : hourlyList){
+        for(Employee hourly : Employees){
             if(hourly.getId().toString().equals(id)){
                 employeeToPost = (Hourly) hourly;
             }
@@ -53,12 +47,8 @@ public class ServicesControl {
         System.out.println("Digite o ID do empregado:");
         String id = input.nextLine();
 
-        Predicate<Employee> empFilter = employee -> employee instanceof Commissioned;
-        ArrayList<Employee> commissionedList = Employees.stream().filter(empFilter).
-                collect(Collectors.toCollection(ArrayList::new));
-
         Commissioned employeeToPost = null;
-        for(Employee commissioned : commissionedList){
+        for(Employee commissioned : Employees){
             if(commissioned.getId().toString().equals(id)){
                 employeeToPost = (Commissioned) commissioned;
             }
@@ -82,12 +72,8 @@ public class ServicesControl {
         System.out.println("Digite o ID do empregado:");
         String id = input.nextLine();
 
-        Predicate<Employee> empFilter = employee -> employee.getSyndicate() != null && employee.getSyndicate().isActive();
-        ArrayList<Employee> syndicateList = Employees.stream().filter(empFilter).
-                collect(Collectors.toCollection(ArrayList::new));
-
         Employee employeeToPost = null;
-        for(Employee employee : syndicateList){
+        for(Employee employee : Employees){
             if(employee.getId().toString().equals(id)){
                 employeeToPost = employee;
             }
