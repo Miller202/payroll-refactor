@@ -38,7 +38,7 @@
 ## Refactoring
 
 * Strategy
-  - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy, além disso foi criada um novo método para essa interface, de forma a modularizar o código (método getDateInSchedule). [Veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/f23c1823533c0860b0556770fd252472b77fcb0f)
+  - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy, além disso foi adicionado um novo método nessa interface, de forma a modularizar o código (método getDateInSchedule). [Veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/f23c1823533c0860b0556770fd252472b77fcb0f)
 
 * Move Accumulation to Collecting Parameter
   - Diversos métodos extensos foram refatorados para aumentar a modularização;
