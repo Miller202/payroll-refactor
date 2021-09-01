@@ -38,7 +38,7 @@
 ## Refactoring
 
 * Strategy
-  - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy. [Veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/f23c1823533c0860b0556770fd252472b77fcb0f)
+  - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy, além disso foi criada um novo método para essa interface, de forma a modularizar o código (método getDateInSchedule). [Veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/f23c1823533c0860b0556770fd252472b77fcb0f)
 
 * Move Accumulation to Collecting Parameter
   - Diversos métodos extensos foram refatorados para aumentar a modularização;
@@ -50,4 +50,6 @@
   - Alguns métodos construtores, getters e setters nunca foram utilizados. Logo, foram removidos na refatoração, [veja aqui](https://github.com/Miller202/payroll-refactor/commit/9d7ff5cc64dd246539fd2c2d1785f45f62a6e554). O mesmo aconteceu com o método readSchedule da classe GeneralUtils e a variável schedule no register employee. [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/9839794051c5bd519d26d6df061e29cad1a28935)
 
 * Move method
-  - O método getMethodDiv foi movido para a classe PaymentsControl, pois trata justamente do controle da forma de pagamento, de acordo com as agendas. [solução](https://github.com/Miller202/payroll-refactor/commit/29b0430f9ee2d5a0b9637bb01128bce7f80eafe8)
+  - O método calcMethodDiv() foi movido para a classe PaymentSchedule, pois trata justamente do controle das agendas de pagamento;
+  - O método verifyPayDate() foi movido para a classe PaymentData, pois lida com os paychecks (comprovantes de pagamento) e as agendas.
+  - Essas alterações podem ser visualizadas nesse commit: [veja aqui](https://github.com/Miller202/payroll-refactor/commit/cedb51a88df3225a7f0bb622af2dcc5af181d67e).
