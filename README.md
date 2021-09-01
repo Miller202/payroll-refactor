@@ -37,6 +37,9 @@
 
 ## Refactoring
 
+* Interpreter
+  - Foi aplicado o Design Pattern Interpreter para solucionar um code smell da classe ServicesControl, nas filtragens de empregados para lançar cartão de ponto, resultados de venda e taxas de serviço. Essas filtragens estavam sendo repetidas várias vezes na classe, então foi definida uma interface com o método abstrato para decidir se um empregado deve ser filtrado ou não. Foi criado um método para criar a lista de empregados filtrados com base no interpretador, resolvendo assim, o code smell. [Veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/f576ee41b55e1cf9be224e7b41bf2faa375b52d8)
+
 * Strategy
   - Foi aplicado o Design Pattern Strategy para solucionar um code smell da classe PaymentsControl, nos métodos getMethodDiv() e VerifyPayDate(), definindo uma interface com os métodos abstratos criando uma classe concreta para cada tipo de agenda, com as implementações do comportamento adequado para cada uma delas. Na classe PaymentSchedule, foi adicionado um atributo strategy, além disso foi adicionado um novo método nessa interface, de forma a modularizar o código (método getDateInSchedule). [Veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/f23c1823533c0860b0556770fd252472b77fcb0f)
 
