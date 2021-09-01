@@ -14,12 +14,12 @@ public class MonthlyStrategy implements ScheduleStrategy, Serializable {
     }
 
     @Override
-    public boolean getDateInSchedule(PaymentSchedule empSchedule, int week, LocalDate current) {
-        if (empSchedule.getMonthDay() == null) {
+    public boolean getDateInSchedule(PaymentSchedule paySchedule, int week, LocalDate current) {
+        if (paySchedule.getMonthDay() == null) {
             return current.isEqual(GeneralUtils.
                     getLastJobDay(current.with(TemporalAdjusters.lastDayOfMonth())));
         } else {
-            return (empSchedule.getMonthDay() == current.getDayOfMonth());
+            return (paySchedule.getMonthDay() == current.getDayOfMonth());
         }
     }
 }

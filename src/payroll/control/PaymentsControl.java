@@ -38,7 +38,7 @@ public class PaymentsControl {
             }
 
             for(Employee emp : employees){
-                if(verifyPayDate(emp, week, current)){
+                if(emp.getPaymentData().verifyPayDate(week, current)){
                     payCheck = emp.makePayment(current);
                     System.out.println(payCheck.toString());
                     payCheckList.add(payCheck);
@@ -51,28 +51,6 @@ public class PaymentsControl {
         }
 
         return paymentList;
-    }
-
-    public static int getMethodDiv(Employee emp){
-        return emp.getPaymentData().getSchedule().getStrategy().getMethodDiv();
-    }
-
-    public static boolean verifyPayDate(Employee employee, int week, LocalDate current){
-        boolean alreadyPay = false;
-        boolean dateInSchedule;
-        PaymentSchedule empSchedule = employee.getPaymentData().getSchedule();
-
-        dateInSchedule = employee.getPaymentData().getSchedule().getStrategy()
-                .getDateInSchedule(empSchedule, week, current);
-
-        for(PayCheck pc : employee.getPaymentData().getPayChecks()){
-            if (pc.getDate() == current) {
-                alreadyPay = true;
-                break;
-            }
-        }
-
-        return (dateInSchedule && (!alreadyPay));
     }
 
     public static ArrayList<PaymentSchedule> startSchedules(){

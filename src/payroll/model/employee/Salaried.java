@@ -1,6 +1,5 @@
 package payroll.model.employee;
 
-import payroll.control.PaymentsControl;
 import payroll.model.payments.PaymentData;
 
 import java.time.LocalDate;
@@ -30,6 +29,6 @@ public class Salaried extends Employee {
 
     @Override
     public Double getGrossPayment(LocalDate payDate) {
-        return (this.getSalary() / PaymentsControl.getMethodDiv(this));
+        return (this.getSalary() / this.getPaymentData().getSchedule().calcMethodDiv());
     }
 }

@@ -12,7 +12,7 @@ public class BiWeeklyStrategy implements ScheduleStrategy, Serializable {
     }
 
     @Override
-    public boolean getDateInSchedule(PaymentSchedule empSchedule, int week, LocalDate current) {
-        return (empSchedule.getWeekDay() == current.getDayOfWeek() && week%2==0);
+    public boolean getDateInSchedule(PaymentSchedule paySchedule, int week, LocalDate current) {
+        return (paySchedule.getWeekDay() == current.getDayOfWeek() && week%2==0);
     }
 }

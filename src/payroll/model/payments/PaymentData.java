@@ -1,6 +1,9 @@
 package payroll.model.payments;
 
+import payroll.model.employee.Employee;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class PaymentData implements Serializable {
@@ -68,5 +71,21 @@ public class PaymentData implements Serializable {
                 ", Método de pagamento: '" + getPaymentMethod() + '\'' +
                 ", \nAgenda: '" + getSchedule().toString() + '\'' +
                 '}';
+    }
+
+    public boolean verifyPayDate(int week, LocalDate current){
+        boolean alreadyPay = false;
+        boolean dateInSchedule;
+
+        dateInSchedule = this.getSchedule().isDateInSchedule(week, current);
+
+        for(PayCheck pc : this.getPayChecks()){
+            if (pc.getDate() == current) {
+                alreadyPay = true;
+                break;
+            }
+        }
+
+        return (dateInSchedule && (!alreadyPay));
     }
 }

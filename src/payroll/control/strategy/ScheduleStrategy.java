@@ -5,7 +5,7 @@ import payroll.model.payments.PaymentSchedule;
 import java.time.LocalDate;
 
 public interface ScheduleStrategy {
-    public int getMethodDiv();
+    int getMethodDiv();
 
-    public boolean getDateInSchedule(PaymentSchedule empSchedule, int week, LocalDate current);
+    boolean getDateInSchedule(PaymentSchedule paySchedule, int week, LocalDate current);
 }

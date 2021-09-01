@@ -1,9 +1,11 @@
 package payroll.model.payments;
 
 import payroll.control.strategy.ScheduleStrategy;
+import payroll.model.employee.Employee;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class PaymentSchedule implements Serializable {
 
@@ -46,5 +48,13 @@ public class PaymentSchedule implements Serializable {
                 ", Dia da semana: " + getWeekDay() +
                 ", Tipo de agenda: '" + getSchedule() + '\'' +
                 '}';
+    }
+
+    public int calcMethodDiv(){
+        return this.getStrategy().getMethodDiv();
+    }
+
+    public boolean isDateInSchedule(int week, LocalDate current){
+        return this.getStrategy().getDateInSchedule(this, week, current);
     }
 }

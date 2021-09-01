@@ -1,6 +1,5 @@
 package payroll.model.employee;
 
-import payroll.control.PaymentsControl;
 import payroll.model.payments.PayCheck;
 import payroll.model.payments.PaymentData;
 import payroll.model.services.SaleResult;
@@ -53,7 +52,7 @@ public class Commissioned extends Employee {
     public Double getGrossPayment(LocalDate payDate) {
         ArrayList<SaleResult> saleResults;
         ArrayList<PayCheck> payChecks = this.getPaymentData().getPayChecks();
-        double grossPayment = this.getFixedSalary() / PaymentsControl.getMethodDiv(this);
+        double grossPayment = this.getFixedSalary() / this.getPaymentData().getSchedule().calcMethodDiv();
 
         if(payChecks.isEmpty()){
             Predicate<SaleResult> dateFilter = saleResult -> !saleResult.getDate().isAfter(payDate);
