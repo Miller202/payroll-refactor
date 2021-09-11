@@ -45,8 +45,8 @@
 
 * Move Accumulation to Collecting Parameter
   - Diversos métodos extensos foram refatorados para aumentar a modularização;
-  - Métodos da classe EmployeeMenu foram modularizados, com a remoção de duplicated code nos loops, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/2659a848dc2c57861983c26630ea4be9fa233485);
-  - Modularização com a criação de métodos utils para ler dados nos métodos register e editEmployee da classe EmployeeMenu, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/d5b6dc1da9fbc550de000ce8d376c35708bd038e);
+  - Métodos da classe EmployeeControl foram modularizados, com a remoção de duplicated code nos loops, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/2659a848dc2c57861983c26630ea4be9fa233485);
+  - Modularização com a criação de métodos utils para ler dados nos métodos register e editEmployee da classe EmployeeControl, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/d5b6dc1da9fbc550de000ce8d376c35708bd038e);
   - Simplificação do toString das classes Employee e PayCheck, [veja a solução aqui](https://github.com/Miller202/payroll-refactor/commit/e4591646abe5943794102eb297fcf4a863715971).
 
 * Remove Generative Speculation
